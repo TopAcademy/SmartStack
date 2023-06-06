@@ -10,8 +10,10 @@ private:
 	T * mas;
 
 public:
-	// Constructors
+	// Constructors & destructors
 	SmartStack(unsigned int max_size);
+	SmartStack(const SmartStack& origin_obj);
+	~SmartStack();
 	// Methods
 	bool push(T val);
 	T pop();
@@ -33,6 +35,23 @@ SmartStack<T>::SmartStack(unsigned int max_size)
 	this->top = -1;
 }
 
+// Copy constructor
+template <class T>
+SmartStack<T>::SmartStack(const SmartStack<T>& origin_obj)
+{
+	this->size = origin_obj.size;
+	this->top = origin_obj.top;
+	this->mas = new T[this->size];
+	for (int i = 0; i <= top; i++)
+		this->mas[i] = origin_obj.mas[i];
+}
+
+// Destructor
+template <class T>
+SmartStack<T>::~SmartStack()
+{
+	if (this->mas != nullptr) delete[] mas;
+}
 
 // Method puts new value to the top of stack (if possible)
 template <class T>
